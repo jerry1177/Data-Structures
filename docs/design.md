@@ -4,106 +4,213 @@
 
 These rules apply to all collections in this library unless otherwise specified.
 
-### Null Handling
+Null Handling
 - Null elements are not allowed.
-- Passing null to insertion or query methods throws `NullPointerException`.
+- Passing null to insertion or query methods throws NullPointerException.
 
-### Duplicates
+Duplicates
 - Duplicate elements are allowed unless otherwise specified.
 
-### Thread Safety
+Thread Safety
 - Collections are not thread-safe.
 
-### Iteration
+Iteration
 - Iteration order is deterministic when applicable.
 - Collections that support iteration follow their documented traversal order.
 
-### Indexing
+Indexing
 - Indexed collections use zero-based indexing.
 
 ## Exceptions
 
-### IndexOutOfBoundsException
+IndexOutOfBoundsException
 - Thrown when an index is outside the allowed range.
 
-### NullPointerException
+NullPointerException
 - Thrown when a null element is provided to a method that does not permit nulls.
 
-### NoSuchElementException
-- Thrown when attempting to access, remove, or peek at an element that does not exist in an empty structure.
+NoSuchElementException
+- Thrown when attempting to access or remove an element that does not exist.
 
----
+IllegalArgumentException
+- Thrown when an invalid argument is passed to a method.
+
+--------------------------------------------------
 
 # List
 
-A `List` maintains positional order and supports zero-based index access.
+A List maintains positional order and supports zero-based index access.
 
-The list preserves element order based on insertion and modification operations.  
+The list preserves element order based on insertion and modification operations.
 It does not automatically sort elements.
 
-## Characteristics
+Characteristics
 
 - preserves positional order
 - zero-based indexing
 - duplicates allowed
 - null elements not allowed
 - iteration order follows index order
-- supports Java `Iterable<T>`
+- supports Java Iterable<T>
 
-## Iteration
+--------------------------------------------------
 
-- `List` implements Java's `Iterable<T>` contract.
-- Iteration order follows index order from `0` to `size - 1`.
+Iteration
 
-## Operation Rules
+List implements Java's Iterable<T> contract.
 
-### add(T element)
-- Adds the specified element to the end of the list.
-- Throws `NullPointerException` if `element` is null.
+Iteration order follows index order from:
 
-### add(int index, T element)
-- Inserts the specified element at the specified position in the list.
-- Shifts the element currently at that position, if any, and all subsequent elements to the right.
-- Valid index range: `0..size` inclusive.
-- Allows insertion at the front or end of the list.
-- Throws `NullPointerException` if `element` is null.
-- Throws `IndexOutOfBoundsException` if `index < 0 || index > size()`.
+0 → size - 1
 
-### get(int index)
-- Returns the element at the specified position in the list.
-- Valid index range: `0..size - 1`.
-- Throws `IndexOutOfBoundsException` if `index < 0 || index >= size()`.
+Calling next() when no elements remain must throw NoSuchElementException.
 
-### contains(T element)
-- Returns `true` if the list contains the specified element, otherwise `false`.
-- Throws `NullPointerException` if `element` is null.
+--------------------------------------------------
 
-### size()
-- Returns the number of elements currently in the list.
+Operation Rules
 
-### isEmpty()
-- Returns `true` if the list contains no elements, otherwise `false`.
+add(T element)
 
-### remove(T element)
-- Removes the first occurrence of the specified element from the list, if it is present.
-- Shifts any subsequent elements to the left.
-- Returns the removed element if it was found and removed.
-- Returns `null` if the element was not found.
-- Throws `NullPointerException` if `element` is null.
+Adds the specified element to the end of the list.
 
-### removeAt(int index)
-- Removes the element at the specified position in the list.
-- Shifts any subsequent elements to the left.
-- Returns the removed element.
-- Valid index range: `0..size - 1`.
-- Throws `IndexOutOfBoundsException` if `index < 0 || index >= size()`.
+Throws:
+- NullPointerException if element is null.
 
-### clear()
-- Removes all elements from the list.
-- After this operation, `size()` must return `0` and `isEmpty()` must return `true`.
+--------------------------------------------------
 
-## Notes
+add(int index, T element)
 
-- `List` is ordered, but not sorted.
-- Ordering is based on insertion and modification behavior, not element value.
-- Implementations may differ internally, but all must follow this contract.
+Inserts the specified element at the specified position in the list.
+
+All subsequent elements are shifted one position to the right.
+
+Valid index range:
+0..size (inclusive)
+
+Throws:
+- NullPointerException if element is null
+- IndexOutOfBoundsException if index < 0 or index > size
+
+--------------------------------------------------
+
+get(int index)
+
+Returns the element at the specified position.
+
+Valid index range:
+0..size-1
+
+Throws:
+- IndexOutOfBoundsException if index < 0 or index >= size
+
+--------------------------------------------------
+
+contains(T element)
+
+Returns true if the list contains the specified element.
+
+Throws:
+- NullPointerException if element is null.
+
+--------------------------------------------------
+
+size()
+
+Returns the number of elements currently in the list.
+
+--------------------------------------------------
+
+isEmpty()
+
+Returns true if the list contains no elements.
+
+--------------------------------------------------
+
+remove(T element)
+
+Removes the first occurrence of the specified element.
+
+All subsequent elements are shifted one position to the left.
+
+Returns:
+- the removed element
+
+Throws:
+- NullPointerException if element is null
+- NoSuchElementException if the element is not present
+
+--------------------------------------------------
+
+removeAt(int index)
+
+Removes the element at the specified position.
+
+All subsequent elements are shifted one position to the left.
+
+Returns:
+- the removed element
+
+Valid index range:
+0..size-1
+
+Throws:
+- IndexOutOfBoundsException if index < 0 or index >= size
+
+--------------------------------------------------
+
+clear()
+
+Removes all elements from the list.
+
+After calling clear():
+
+size() == 0
+isEmpty() == true
+
+--------------------------------------------------
+
+# ArrayList Implementation Notes
+
+ArrayList is an array-backed implementation of List.
+
+Internal Structure
+
+The structure maintains:
+
+- a backing array
+- current size
+- current capacity
+
+--------------------------------------------------
+
+Resizing Strategy
+
+When the backing array becomes full:
+
+capacity = capacity * 2
+
+A new array is allocated and existing elements are copied into it.
+
+--------------------------------------------------
+
+Initial Capacity
+
+Default capacity: 10
+
+Custom capacity must be greater than 0.
+
+Throws:
+- IllegalArgumentException if initial capacity <= 0
+
+--------------------------------------------------
+
+# Summary
+
+All List implementations must follow the behavior defined in this document regardless of their internal structure.
+
+Implementations may differ internally but must preserve:
+
+- ordering
+- index semantics
+- exception behavior
+- iteration behavior
