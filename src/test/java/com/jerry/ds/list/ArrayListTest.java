@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-public class ArrayListTest  extends ListContractTest {
+public class ArrayListTest extends ListContractTest {
 
     @Override
     protected List<Integer> createList() {
@@ -19,7 +19,7 @@ public class ArrayListTest  extends ListContractTest {
 
     @Test
     void customInitialCapacityOfOneShouldResizeCorrectly() {
-        List<Integer> list = new ArrayList<>(1);
+        list = createList();
 
         list.add(10);
         list.add(20);
@@ -33,7 +33,7 @@ public class ArrayListTest  extends ListContractTest {
 
     @Test
     void largeResizePreservesOrder() {
-        List<Integer> list = new ArrayList<>();
+        list = createList();
 
         for (int i = 0; i < 200; i++) {
             list.add(i);
