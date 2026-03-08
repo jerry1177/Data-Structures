@@ -2,6 +2,15 @@ package com.jerry.ds.list;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+/* Array-backed implementation of the List interface.
+
+Elements are stored in a dynamically resizing array.
+Capacity grows by doubling when the array becomes full.
+
+Time complexity:
+append: amortized O(1)
+insert: O(n)
+remove: O(n) */
 
 public class ArrayList<T> implements List<T> {
     private int size;

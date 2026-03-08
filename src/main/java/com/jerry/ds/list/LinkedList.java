@@ -2,6 +2,16 @@ package com.jerry.ds.list;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+/*
+Linked-node implementation of the List interface.
+
+Elements are stored as nodes linked together in sequence.
+
+Time complexity:
+append: O(1) if tail maintained
+insert: O(n)
+remove: O(n)
+*/
 
 public class LinkedList<T> implements List<T> {
     private Node<T> head;
