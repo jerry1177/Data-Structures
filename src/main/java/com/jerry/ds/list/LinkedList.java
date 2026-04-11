@@ -14,9 +14,20 @@ remove: O(n)
 */
 
 public class LinkedList<T> implements List<T> {
+    public class Node<T> {
+        T value;
+        Node<T> next;
+
+        public Node(T value) {
+            this.value = value;
+            this.next = null;
+        }
+    }
+
     private Node<T> head;
     private Node<T> tail;
     private int size;
+
     public LinkedList() {
         this.head = null;
         this.tail = null;
@@ -47,7 +58,7 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public void add(T element) {
-        if(element == null) {
+        if (element == null) {
             throw new NullPointerException("Null elements are not allowed");
         }
         Node<T> newNode = new Node<>(element);
@@ -63,10 +74,10 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public void add(int index, T element) {
-        if(element == null) {
+        if (element == null) {
             throw new NullPointerException("Null elements are not allowed");
         }
-        if(index < 0 || index > size) {
+        if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
         Node<T> newNode = new Node<>(element);
@@ -92,7 +103,7 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public T get(int index) {
-        if(index < 0 || index >= size) {
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
         Node<T> current = head;
@@ -104,7 +115,7 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public boolean contains(T element) {
-        if(element == null) {
+        if (element == null) {
             throw new NullPointerException("Null elements are not allowed");
         }
         Node<T> current = head;
@@ -175,7 +186,6 @@ public class LinkedList<T> implements List<T> {
         size--;
         return current.value;
     }
-        
 
     @Override
     public void clear() {
@@ -183,5 +193,5 @@ public class LinkedList<T> implements List<T> {
         tail = null;
         size = 0;
     }
-    
+
 }
